@@ -17,7 +17,8 @@ class Dinosaur:
         self.dino_run = True
         self.dino_duck = False
         self.dino_jump = False  
-        self.jump_vel = self.JUMP_VEL    
+        self.jump_vel = self.JUMP_VEL   
+        self.dino_dead = False 
     
     def update(self, user_input):
         if self.dino_jump:
@@ -32,6 +33,10 @@ class Dinosaur:
             self.dino_duck = True
             self.dino_jump = False 
         elif user_input[pygame.K_UP] and not self.dino_jump:
+            self.dino_run = False
+            self.dino_duck = False
+            self.dino_jump = True  
+        elif user_input[pygame.K_SPACE] and not self.dino_jump:
             self.dino_run = False
             self.dino_duck = False
             self.dino_jump = True  
@@ -69,3 +74,4 @@ class Dinosaur:
             self.dino_rect.y = self.Y_POS
             self.dino_jump = False
             self.jump_vel = self.JUMP_VEL
+            

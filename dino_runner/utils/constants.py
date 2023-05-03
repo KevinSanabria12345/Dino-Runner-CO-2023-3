@@ -74,3 +74,7 @@ FONDO = pygame.image.load(os.path.join(IMG_DIR, 'Kevin/fondo.png'))
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 DEFAULT_TYPE = "default"
+
+DEAD = pygame.image.load(os.path.join(IMG_DIR, 'Dino/DinoDead.png'))
+
+SHIELD_TYPE = "shield"

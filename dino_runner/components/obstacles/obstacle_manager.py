@@ -14,7 +14,7 @@ class ObstacleManager:
         if self.image == Birds and len(self.obstacles) == 0 :
             self.obstacles.append(Birds())
         for obstacle in self.obstacles:
-            if obstacle.rect.x < -obstacle.rect.width:
+            if obstacle.rect.x < -obstacle.rect.width or player.hammer == True:
                 self.obstacles.remove(obstacle)
             obstacle.update(game_speed, player)
 

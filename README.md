@@ -1,5 +1,7 @@
-1-
-2-
-3-
-4
-5-
+1-TRICERATOPS
+2-JUMPS
+3-power_up
+4-dino_trampoline
+5-nubes
+6- dino y bg en pantalla de inicio
+7- contador de muertes

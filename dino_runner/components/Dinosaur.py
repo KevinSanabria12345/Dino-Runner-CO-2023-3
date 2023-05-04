@@ -1,6 +1,6 @@
 import pygame
 from dino_runner.utils.constants import (JUMPING, RUNNING, DUCKING, DEAD, RUNNING_SHIELD, DUCKING_SHIELD, JUMPING_SHIELD,
-                                         DEFAULT_TYPE, SHIELD_TYPE, RUNNING_HAMMER, DUCKING_HAMMER, JUMPING_HAMMER, HAMMER_TYPE)
+                                         DEFAULT_TYPE, SHIELD_TYPE, RUNNING_HAMMER, DUCKING_HAMMER, JUMPING_HAMMER, HAMMER_TYPE, TRAMPOLINE_TYPE, TRAMPOLINE_JUMP, TRAMPOLINE_DUCKIN, TRAMPOLINE_RUNNING)
 
 class Dinosaur:
     X_POS = 80
@@ -11,9 +11,9 @@ class Dinosaur:
 
     
     def __init__(self):
-        self.run_image = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
-        self.duck_image = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
-        self.jump_image = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
+        self.run_image = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER, TRAMPOLINE_TYPE: TRAMPOLINE_RUNNING}
+        self.duck_image = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER, TRAMPOLINE_TYPE: TRAMPOLINE_DUCKIN}
+        self.jump_image = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER, TRAMPOLINE_TYPE: TRAMPOLINE_JUMP}
         self.type = DEFAULT_TYPE
         self.image = self.run_image[self.type][0]
         self.dino_rect = self.image.get_rect()
@@ -31,6 +31,7 @@ class Dinosaur:
         self.shield = False
         self.time_up_power_up = 0
         self.hammer = False
+        self.trampoline = False
     
     def update(self, user_input):
         if self.dino_jump:
@@ -60,7 +61,7 @@ class Dinosaur:
             self.dino_duck = False
             self.dino_jump = False
             self.dino_super_jump = True
-        elif user_input[pygame.K_z] and not self.dino_jump and not self.dino_super_jump and not self.dino_trampoline_jump:
+        elif user_input[pygame.K_z] and not self.dino_jump and not self.dino_super_jump and not self.dino_trampoline_jump  and  self.trampoline == True :
             self.dino_run = False
             self.dino_duck = False
             self.dino_jump = True
@@ -85,6 +86,13 @@ class Dinosaur:
             time_to_show = round((self.time_up_power_up - pygame.time.get_ticks())/1000, 2)
             if time_to_show < 0:
                 self.reset()
+
+        if self.trampoline:
+            time_to_show = round((self.time_up_power_up - pygame.time.get_ticks())/1000, 2)
+            if time_to_show < 0:
+                self.reset()
+
+        
 
 
     def draw(self, screen):
@@ -156,12 +164,19 @@ class Dinosaur:
             self.type = HAMMER_TYPE
             self.hammer = True
             self.time_up_power_up = power_up.time_up
+        if power_up.type == TRAMPOLINE_TYPE:
+            self.type = TRAMPOLINE_TYPE
+            self.trampoline = True
+            self.time_up_power_up = power_up.time_up
+
 
     def reset(self):
         self.type = DEFAULT_TYPE
         self.shield = False
         self.time_up_power_up = 0
         self.hammer = False
+        self.time_up_power_up = 0
+        self.trampoline = False
         self.time_up_power_up = 0
 
     

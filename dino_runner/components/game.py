@@ -28,6 +28,7 @@ class Game:
         self.object_manager = ObjectManager()
         self.points = 0
         self.death_count = 0
+        
 
        
 
@@ -52,30 +53,31 @@ class Game:
 
     def update(self):
         if self.playing:
-          self.points += 1
-          user_input = pygame.key.get_pressed()
-          self.player.update(user_input)
-          self.obstacle_Manager.update(self.game_speed, self.player)
-          self.power_up_manager.update(self.game_speed, self.points, self.player)
-          self.object_manager.update(self.game_speed)
-          if self.player.dino_dead:
-              self.playing = False
-              self.death_count += 1
+            self.points += 1
+            user_input = pygame.key.get_pressed()
+            self.player.update(user_input)
+            self.obstacle_Manager.update(self.game_speed, self.player)
+            self.power_up_manager.update(self.game_speed, self.points, self.player)
+            self.object_manager.update(self.game_speed)
+            if self.player.dino_dead:
+               self.playing = False
+               self.death_count += 1
 
             
     def draw(self):
         if self.playing:
-          self.clock.tick(FPS)
-          self.screen.fill((255, 255, 255))
-          self.draw_background() 
-          self.draw_score()      
-          self.obstacle_Manager.draw(self.screen)
-          self.power_up_manager.draw(self.screen)
-          self.object_manager.draw(self.screen)
+             self.clock.tick(FPS)
+             self.screen.fill((255, 255, 255))
+             self.draw_background() 
+             self.draw_score()      
+             self.obstacle_Manager.draw(self.screen)
+             self.power_up_manager.draw(self.screen)
+             self.object_manager.draw(self.screen)
+             #self.player.draw(self.screen)
         else:
             self.draw_menu()
-
         self.player.draw(self.screen)
+        self.draw_bg_menu()
         pygame.display.update()
         pygame.display.flip()
 
@@ -87,6 +89,12 @@ class Game:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
+
+    def draw_bg_menu(self):
+        if self.playing == False:
+            image_width = BG.get_width()
+            self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
+            self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
 
     def draw_score(self):
         score, score_text = text_utils.get_message("Points: " + str(self.points), 20, 1000, 40)
@@ -103,8 +111,9 @@ class Game:
             text, text_rect = text_utils.get_message("Press any key to Restart", 30)
             score, score_rect = text_utils.get_message("Your score: " + str(self.points), 30, heigth = SCREEN_HEIGHT//2 + 50)
             self.screen.blit(score,score_rect)
-            self.screen.blit(text, text_rect)    
-    
+            self.screen.blit(text, text_rect) 
+            death, death_rect =text_utils.get_message("Deaths: " + str(self.death_count), 20, 1000, 40) 
+            self.screen.blit(death,death_rect)
     
     def reset_game(self):
         self.game_speed = 20
@@ -113,6 +122,14 @@ class Game:
         self.power_up_manager = PowerUpManager()
         self.object_manager = ObjectManager()
         self.points = 0
+    
+
+
+        
+
+
+    
+
 
 
    

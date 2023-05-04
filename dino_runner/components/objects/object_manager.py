@@ -5,7 +5,7 @@ class ObjectManager:
         self.objects = []
 
     def update(self, game_speed):
-        if len(self.objects) == 0:
+        if len(self.objects) == 0 or self.objects[-1].rect.x < 500:
             self.objects.append(Clouds())
         for object in self.objects:
             if object.rect.x < -object.rect.width:

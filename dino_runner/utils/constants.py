@@ -79,3 +79,22 @@ DEAD = pygame.image.load(os.path.join(IMG_DIR, 'Dino/DinoDead.png'))
 
 SHIELD_TYPE = "shield"
 HAMMER_TYPE = "hammer"
+TRAMPOLINE_TYPE = "trampoline_jump"
+TRAMPOLINE = pygame.image.load(os.path.join(IMG_DIR, 'Kevin/trampoline.png'))
+
+TRICERATOPS = [
+    pygame.image.load(os.path.join(IMG_DIR, 'Kevin/triceratops_run1.png')),
+    pygame.image.load(os.path.join(IMG_DIR, 'Kevin/triceratops_run2.png')),
+]
+
+TRAMPOLINE_DUCKIN = [
+    pygame.image.load(os.path.join(IMG_DIR, "Kevin/dino_trampoline_duck1.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Kevin/dino_trampoline_duck2.png")),
+]
+
+TRAMPOLINE_RUNNING = [
+    pygame.image.load(os.path.join(IMG_DIR, "Kevin/dino_trampoline_run1.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Kevin/dino_trampoline_run2.png")),
+]
+
+TRAMPOLINE_JUMP = pygame.image.load(os.path.join(IMG_DIR, 'Kevin/dino_trampoline_jump.png'))
